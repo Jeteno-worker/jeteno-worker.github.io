@@ -11,11 +11,17 @@
   <body>
     <!-- <div id="root"></div> -->
     <div>
-      <button id="requestBluetoothDevice"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Запросить устройство Bluetooth</font></font></button>
-      
+      <button id="requestBluetoothDevice">Запросить устройство Bluetooth</button>
+      <button id="forgetBluetoothDevice">Забыть выбранное устройство</button>
     </div>
     <div>
-      <select id="devicesSelect"></select>
+      <select id="devicesSelect">
+        <option value="">-- Выберите устройство --</option>
+      </select>
+    </div>
+    <div>
+      <h4>Лог:</h4>
+      <div id="log" class="log"></div>
     </div>
     <script>
       function populateBluetoothDevices() {
@@ -23,7 +29,7 @@
   log('Getting existing permitted Bluetooth devices...');
   navigator.bluetooth.getDevices()
   .then(devices => {
-    log('> Got ' + devices.length + ' Bluetooth devices.');
+    console.log('> Got ' + devices.length + ' Bluetooth devices.');
     devicesSelect.textContent = '';
     for (const device of devices) {
       const option = document.createElement('option');
@@ -33,22 +39,22 @@
     }
   })
   .catch(error => {
-    log('Argh! ' + error);
+    console.log('Argh! ' + error);
   });
 }
 
 function onRequestBluetoothDeviceButtonClick() {
-  log('Requesting any Bluetooth device...');
+  console.log('Requesting any Bluetooth device...');
   navigator.bluetooth.requestDevice({
  // filters: [...] <- Prefer filters to save energy & show relevant devices.
     acceptAllDevices: true
   })
   .then(device => {
-    log('> Requested ' + device.name + ' (' + device.id + ')');
+    console.log('> Requested ' + device.name + ' (' + device.id + ')');
     populateBluetoothDevices();
   })
   .catch(error => {
-    log('Argh! ' + error);
+    console.log('Argh! ' + error);
   });
 }
 
@@ -60,15 +66,15 @@ function onForgetBluetoothDeviceButtonClick() {
     if (!device) {
       throw new Error('No Bluetooth device to forget');
     }
-    log('Forgetting ' + device.name + 'Bluetooth device...');
+    console.log('Forgetting ' + device.name + 'Bluetooth device...');
     return device.forget();
   })
   .then(() => {
-    log('  > Bluetooth device has been forgotten.');
+    console.log('  > Bluetooth device has been forgotten.');
     populateBluetoothDevices();
   })
   .catch(error => {
-    log('Argh! ' + error);
+    console.log('Argh! ' + error);
   });
 }
 
