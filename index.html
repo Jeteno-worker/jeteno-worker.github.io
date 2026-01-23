@@ -9,7 +9,14 @@
     <link rel="stylesheet" crossorigin href="/assets/index-DsQpcWzI.css">
   </head>
   <body>
-    <div id="root"></div>
+    <!-- <div id="root"></div> -->
+    <div>
+      <button id="requestBluetoothDevice"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Запросить устройство Bluetooth</font></font></button>
+      
+    </div>
+    <div>
+      <select id="devicesSelect"></select>
+    </div>
     <script>
       function populateBluetoothDevices() {
   const devicesSelect = document.querySelector('#devicesSelect');
