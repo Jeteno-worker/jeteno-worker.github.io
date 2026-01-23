@@ -78,9 +78,10 @@ function onForgetBluetoothDeviceButtonClick() {
   });
 }
 
-// window.onload = () => {
-//   populateBluetoothDevices();
-// };
+window.onload = () => {
+  document.getElementById('requestBluetoothDevice').addEventListener('click', onRequestBluetoothDeviceButtonClick);
+        document.getElementById('forgetBluetoothDevice').addEventListener('click', onForgetBluetoothDeviceButtonClick);
+};
     </script>
   </body>
 </html>
